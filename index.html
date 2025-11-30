@@ -5,24 +5,24 @@
   <title>MGTA 452 – Opioid Overdose Analysis</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Optional: Google Font -->
+  <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #0f172a;
-      --bg-alt: #020617;
-      --card: #020617;
-      --accent: #38bdf8;
-      --accent-soft: rgba(56,189,248,0.1);
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --border: #1f2937;
+      --bg: #f5f3ff;
+      --bg-alt: #ede9fe;
+      --card: #ffffff;
+      --accent: #7c3aed;
+      --accent-soft: rgba(124, 58, 237, 0.12);
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
       --radius-xl: 1.25rem;
       --radius-lg: 0.9rem;
-      --shadow-soft: 0 18px 45px rgba(15,23,42,0.75);
+      --shadow-soft: 0 12px 30px rgba(15, 23, 42, 0.08);
       --transition-fast: 150ms ease-out;
     }
 
@@ -34,15 +34,19 @@
 
     body {
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #1d283a 0, #020617 52%, #000 100%);
+      background: linear-gradient(180deg, #f9fafb 0%, #f5f3ff 40%, #ede9fe 100%);
       color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
     }
 
     a {
-      color: inherit;
+      color: var(--accent);
       text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
 
     /* Layout */
@@ -64,10 +68,10 @@
       top: 0;
       z-index: 20;
       backdrop-filter: blur(18px);
-      background: linear-gradient(to bottom, rgba(15,23,42,0.88), rgba(15,23,42,0.4) 65%, transparent);
+      background: rgba(255, 255, 255, 0.85);
       padding: 0.75rem 1.25rem 0.6rem;
       margin: -0.5rem -1.25rem 1.5rem;
-      border-bottom: 1px solid rgba(15,23,42,0.65);
+      border-bottom: 1px solid var(--border);
     }
 
     @media (min-width: 1024px) {
@@ -78,6 +82,7 @@
         left: 50%;
         transform: translateX(-50%);
         padding-inline: 1.5rem;
+        box-shadow: 0 10px 25px rgba(148, 163, 184, 0.25);
       }
     }
 
@@ -98,21 +103,23 @@
       width: 26px;
       height: 26px;
       border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.6);
+      border: 1px solid rgba(129, 140, 248, 0.7);
       display: flex;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(circle at 30% 0, rgba(56,189,248,0.6), transparent 56%), #020617;
-      box-shadow: 0 0 0 1px rgba(15,23,42,1);
+      background: radial-gradient(circle at 30% 0, rgba(196, 181, 253, 0.9), transparent 60%), #fff;
+      box-shadow: 0 0 0 1px rgba(229, 231, 235, 0.9);
       font-size: 0.8rem;
+      color: #4b5563;
+      font-weight: 600;
     }
 
     .nav-title {
       font-size: 0.9rem;
-      font-weight: 500;
+      font-weight: 600;
       letter-spacing: 0.03em;
       text-transform: uppercase;
-      color: #cbd5f5;
+      color: #4b5563;
     }
 
     .nav-sub {
@@ -128,31 +135,31 @@
     }
 
     .nav-links a {
-      padding: 0.2rem 0.75rem;
+      padding: 0.25rem 0.85rem;
       border-radius: 999px;
-      color: #cbd5f5;
+      color: #4b5563;
       border: 1px solid transparent;
       background: transparent;
       transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform 120ms ease-out;
     }
 
     .nav-links a:hover {
-      background: rgba(15,23,42,0.9);
-      border-color: rgba(148,163,184,0.9);
+      background: #ede9fe;
+      border-color: #ddd6fe;
       transform: translateY(-1px);
     }
 
     .nav-links a.primary {
-      background: linear-gradient(135deg, var(--accent), #6366f1);
-      color: #0b1120;
+      background: linear-gradient(135deg, #a855f7, #6366f1);
+      color: #f9fafb;
       font-weight: 500;
       border-color: transparent;
-      box-shadow: 0 0 0 1px rgba(15,23,42,0.8), 0 14px 30px rgba(37,99,235,0.7);
+      box-shadow: 0 10px 25px rgba(129, 140, 248, 0.6);
     }
 
     .nav-links a.primary:hover {
       transform: translateY(-1px) translateZ(0);
-      box-shadow: 0 20px 40px rgba(37,99,235,0.9);
+      box-shadow: 0 16px 35px rgba(129, 140, 248, 0.8);
     }
 
     /* Hero */
@@ -175,19 +182,20 @@
       font-weight: 600;
       letter-spacing: -0.04em;
       margin-bottom: 0.75rem;
+      color: #111827;
     }
 
     .hero-highlight {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.35rem 0.65rem;
+      padding: 0.35rem 0.75rem;
       border-radius: 999px;
-      border: 1px solid rgba(56,189,248,0.3);
-      background: radial-gradient(circle at 0 0, rgba(56,189,248,0.18), transparent 60%);
+      border: 1px solid #ddd6fe;
+      background: var(--accent-soft);
       margin-bottom: 0.65rem;
       font-size: 0.75rem;
-      color: #e0f2fe;
+      color: #4c1d95;
     }
 
     .pill-dot {
@@ -195,7 +203,7 @@
       height: 8px;
       border-radius: 999px;
       background: var(--accent);
-      box-shadow: 0 0 0 4px rgba(56,189,248,0.23);
+      box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.25);
     }
 
     .hero-sub {
@@ -218,25 +226,23 @@
       display: inline-flex;
       align-items: center;
       gap: 0.3rem;
-      padding: 0.3rem 0.6rem;
+      padding: 0.3rem 0.7rem;
       border-radius: 999px;
-      background: rgba(15,23,42,0.9);
-      border: 1px solid rgba(31,41,55,0.9);
+      background: #f9fafb;
+      border: 1px solid var(--border);
     }
 
     .hero-meta span strong {
-      color: #e5e7eb;
+      color: #374151;
       font-weight: 500;
     }
 
     .hero-panel {
       border-radius: var(--radius-xl);
-      padding: 0.9rem 1rem;
-      background: radial-gradient(circle at 0 0, rgba(56,189,248,0.33), transparent 55%), linear-gradient(to bottom right, #020617, #020617);
-      border: 1px solid rgba(15,23,42,1);
+      padding: 1rem 1.1rem;
+      background: linear-gradient(135deg, #f5f3ff, #ffffff);
+      border: 1px solid #e0e7ff;
       box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
     }
 
     .hero-panel-header {
@@ -247,84 +253,36 @@
       font-size: 0.8rem;
     }
 
-    .hero-panel-tabs {
-      display: inline-flex;
-      border-radius: 999px;
-      border: 1px solid rgba(15,23,42,0.95);
-      background: rgba(15,23,42,0.95);
-      box-shadow: 0 1px 0 rgba(148,163,184,0.3);
-      padding: 0.09rem;
-    }
-
-    .hero-panel-tabs button {
-      border: none;
-      background: transparent;
-      color: var(--muted);
-      padding: 0.25rem 0.7rem;
-      font-size: 0.74rem;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: background var(--transition-fast), color var(--transition-fast), transform 120ms ease-out;
-      white-space: nowrap;
-    }
-
-    .hero-panel-tabs button.active {
-      background: radial-gradient(circle at 0 0, rgba(56,189,248,0.35), transparent 75%);
-      color: #e0f2fe;
-      transform: translateY(-1px);
+    .hero-panel-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #4c1d95;
+      font-weight: 600;
     }
 
     .hero-panel-label {
       font-size: 0.75rem;
-      color: #cbd5f5;
-      opacity: 0.9;
+      color: var(--muted);
     }
 
     .hero-panel-body {
       border-radius: calc(var(--radius-xl) - 0.7rem);
-      background: radial-gradient(circle at top left, rgba(56,189,248,0.15), transparent 60%), #020617;
-      border: 1px solid rgba(15,23,42,1);
-      padding: 0.75rem;
-    }
-
-    .hero-panel-notice {
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      padding: 0.8rem 0.85rem;
     }
 
     .hero-panel-code {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 0.7rem;
-      background: radial-gradient(circle at top left, rgba(15,23,42,0.9), rgba(0,0,0,0.95));
-      border-radius: calc(var(--radius-xl) - 1.05rem);
-      padding: 0.65rem 0.75rem;
-      border: 1px solid rgba(30,64,175,0.6);
-      box-shadow: inset 0 0 0 1px rgba(15,23,42,0.7);
+      font-size: 0.72rem;
+      background: #111827;
+      border-radius: calc(var(--radius-xl) - 1rem);
+      padding: 0.7rem 0.8rem;
+      border: 1px solid #4b5563;
+      color: #e5e7eb;
       overflow-x: auto;
       white-space: pre;
-    }
-
-    .hero-panel-badge {
-      position: absolute;
-      inset: auto 0.9rem 0.7rem auto;
-      font-size: 0.65rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.96);
-      color: var(--muted);
-      border: 1px solid rgba(31,41,55,0.9);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-
-    .hero-panel-badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 3px rgba(34,197,94,0.32);
     }
 
     /* Section headers */
@@ -345,7 +303,7 @@
       letter-spacing: 0.06em;
       text-transform: uppercase;
       font-weight: 500;
-      color: #d1d5db;
+      color: #4b5563;
     }
 
     .section-kicker {
@@ -356,9 +314,9 @@
 
     /* Cards / containers */
     .card {
-      background: radial-gradient(circle at 0 0, rgba(31,41,55,0.5), transparent 60%), #020617;
+      background: var(--card);
       border-radius: var(--radius-xl);
-      border: 1px solid rgba(15,23,42,1);
+      border: 1px solid var(--border);
       padding: 1rem;
       box-shadow: var(--shadow-soft);
     }
@@ -367,6 +325,7 @@
       font-size: 0.9rem;
       font-weight: 500;
       margin-bottom: 0.2rem;
+      color: #111827;
     }
 
     .muted {
@@ -378,7 +337,7 @@
     .dashboard-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-      gap: 1.25rem;
+      gap: 1.5rem;
     }
 
     @media (max-width: 960px) {
@@ -388,10 +347,10 @@
     }
 
     .dashboard-card {
-      background: radial-gradient(circle at 0 0, rgba(37,99,235,0.4), transparent 60%), #020617;
+      background: linear-gradient(135deg, #f5f3ff, #ffffff);
       border-radius: var(--radius-xl);
-      padding: 0.85rem;
-      border: 1px solid rgba(15,23,42,1);
+      padding: 0.9rem;
+      border: 1px solid #e0e7ff;
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
@@ -406,17 +365,18 @@
     }
 
     .dashboard-title {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: 500;
+      color: #111827;
     }
 
     .dashboard-tag {
       font-size: 0.7rem;
-      color: #bfdbfe;
+      color: #4338ca;
       padding: 0.2rem 0.6rem;
       border-radius: 999px;
-      background: rgba(15,23,42,0.95);
-      border: 1px solid rgba(59,130,246,0.6);
+      background: #eef2ff;
+      border: 1px solid #c7d2fe;
     }
 
     .dashboard-desc {
@@ -426,14 +386,13 @@
 
     .tableau-frame {
       border-radius: calc(var(--radius-xl) - 0.65rem);
-      border: 1px solid rgba(15,23,42,1);
+      border: 1px solid var(--border);
       overflow: hidden;
-      background: radial-gradient(circle at 0 0, rgba(15,23,42,0.9), rgba(0,0,0,0.95));
-      box-shadow: 0 0 0 1px rgba(15,23,42,0.8);
-      min-height: 350px;
+      background: #ffffff;
+      min-height: 480px;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      align-items: stretch;
+      justify-content: stretch;
       position: relative;
     }
 
@@ -443,28 +402,11 @@
       border: 0;
     }
 
-    .tableau-placeholder-text {
-      font-size: 0.83rem;
-      color: #9ca3af;
-      text-align: center;
-      padding: 1rem;
-    }
-
-    .tableau-placeholder-text code {
-      font-size: 0.75rem;
-      background: rgba(15,23,42,0.9);
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.45rem;
-      border: 1px solid rgba(31,41,55,1);
-      display: inline-block;
-      margin-top: 0.35rem;
-    }
-
     /* Analysis & code layout */
     .analysis-layout {
       display: grid;
       grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr);
-      gap: 1.25rem;
+      gap: 1.5rem;
     }
 
     @media (max-width: 960px) {
@@ -481,6 +423,7 @@
     .analysis-text h3 {
       font-size: 0.95rem;
       margin: 0.25rem 0 0.2rem;
+      color: #111827;
     }
 
     .analysis-text p {
@@ -507,16 +450,16 @@
     .pill-row span {
       padding: 0.2rem 0.55rem;
       border-radius: 999px;
-      background: rgba(15,23,42,0.95);
-      border: 1px solid rgba(31,41,55,0.95);
-      color: var(--muted);
+      background: #f3e8ff;
+      border: 1px solid #e9d5ff;
+      color: #4b5563;
     }
 
     /* Code block */
     .code-card {
-      background: radial-gradient(circle at 0 0, rgba(37,99,235,0.5), transparent 65%), #020617;
+      background: var(--card);
       border-radius: var(--radius-xl);
-      border: 1px solid rgba(15,23,42,1);
+      border: 1px solid var(--border);
       padding: 0.9rem;
       box-shadow: var(--shadow-soft);
       font-size: 0.78rem;
@@ -530,10 +473,11 @@
     }
 
     .code-card-label {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: #bfdbfe;
+      color: #4c1d95;
+      font-weight: 600;
     }
 
     .code-card-meta {
@@ -543,17 +487,19 @@
 
     .code-block {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      background: radial-gradient(circle at top left, rgba(15,23,42,0.9), rgba(0,0,0,0.95));
+      background: #111827;
       border-radius: calc(var(--radius-xl) - 0.9rem);
-      border: 1px solid rgba(30,64,175,0.7);
+      border: 1px solid #4b5563;
       padding: 0.7rem 0.75rem;
       overflow-x: auto;
       white-space: pre;
       color: #e5e7eb;
     }
 
-    .code-comment {
-      color: #9ca3af;
+    .code-note {
+      margin-top: 0.4rem;
+      font-size: 0.78rem;
+      color: var(--muted);
     }
 
     .footer {
@@ -565,11 +511,11 @@
       flex-wrap: wrap;
       gap: 0.75rem;
       padding-top: 1.2rem;
-      border-top: 1px solid rgba(15,23,42,1);
+      border-top: 1px solid var(--border);
     }
 
     .footer span strong {
-      color: #e5e7eb;
+      color: #4b5563;
     }
   </style>
 </head>
@@ -586,8 +532,7 @@
       <nav class="nav-links">
         <a href="#dashboards">Dashboards</a>
         <a href="#analysis">Analysis</a>
-        <a href="#methods">Methods</a>
-        <a href="#team" class="primary">Team & Contact</a>
+        <a href="#methods" class="primary">Methods</a>
       </nav>
     </div>
   </header>
@@ -604,65 +549,41 @@
           Visualizing opioid overdose vulnerability across U.S. counties.
         </h1>
         <p class="hero-sub">
-          This dashboard combines CDC overdose data with SAMHSA treatment facility locations to explore
-          how socioeconomic disadvantage and proximity to treatment clinics interact in shaping overdose
-          risk at the county level.
+          Using CDC county-level overdose data merged with SAMHSA treatment facility locations,
+          we study how socioeconomic disadvantage and proximity to clinics relate to opioid
+          overdose rates across the United States.
         </p>
         <div class="hero-meta">
-          <span><strong>Datasets</strong> CDC, SAMHSA</span>
-          <span><strong>Methods</strong> Linear regression, spatial analysis</span>
-          <span><strong>Tools</strong> Tableau, Python / R</span>
+          <span><strong>Datasets</strong> CDC overdose surveillance, SAMHSA treatment facilities</span>
+          <span><strong>Methods</strong> Linear regression, exploratory spatial analysis</span>
+          <span><strong>Tools</strong> Tableau, Python</span>
         </div>
       </div>
 
-      <aside class="hero-panel" aria-label="Quick embed & analysis preview">
+      <aside class="hero-panel" aria-label="Regression model overview">
         <div class="hero-panel-header">
-          <div class="hero-panel-tabs" aria-label="Preview toggle">
-            <button class="active" type="button" data-panel="embed">Tableau Embed</button>
-            <button type="button" data-panel="code">Model Snippet</button>
-          </div>
-          <div class="hero-panel-label">How to plug your work in ↓</div>
+          <div class="hero-panel-title">Regression model (Python)</div>
+          <div class="hero-panel-label">County-level overdose rate as outcome</div>
         </div>
-
         <div class="hero-panel-body">
-          <!-- EMBED INSTRUCTIONS -->
-          <div id="panel-embed">
-            <p class="hero-panel-notice">
-              In Tableau Public/Server, click <strong>Share → Embed Code</strong>, then paste the
-              <code>&lt;iframe&gt;</code> here.
-            </p>
-            <div class="hero-panel-code">
-&lt;!-- Example embed in this page --&gt;
-&lt;div class="tableau-frame"&gt;
-  &lt;iframe
-    src="YOUR_TABLEAU_EMBED_URL_HERE"
-    title="Overdose Heatmap"
-    allowfullscreen
-  &gt;&lt;/iframe&gt;
-&lt;/div&gt;
-            </div>
-          </div>
+          <div class="hero-panel-code">
+import statsmodels.formula.api as smf
 
-          <!-- CODE PREVIEW -->
-          <div id="panel-code" style="display:none;">
-            <p class="hero-panel-notice">
-              Drop your teammate’s regression code or model summary in the <strong>Analysis</strong> section.
-            </p>
-            <div class="hero-panel-code">
-# Example: county-level regression
+# county_df: one row per county
+# od_rate_per_100k = overdose deaths per 100,000 residents (2023)
+# median_household_income_2023 = inflation-adjusted median income
+# pct_uninsured_2023 = share of adults without health insurance
+# clinic_count = SAMHSA-affiliated clinics located in the county
+
 model = smf.ols(
-    "od_rate ~ median_income + pct_uninsured + dist_to_clinic_km",
-    data=df_county
+    "od_rate_per_100k ~ median_household_income_2023 \
+     + pct_uninsured_2023 + clinic_count \
+     + median_household_income_2023:clinic_count",
+    data=county_df,
 ).fit()
 
 print(model.summary())
-            </div>
           </div>
-        </div>
-
-        <div class="hero-panel-badge">
-          <span class="hero-panel-badge-dot"></span>
-          Live project · MGTA 452
         </div>
       </aside>
     </section>
@@ -672,8 +593,7 @@ print(model.summary())
       <div class="section-header">
         <h2 class="section-title">Dashboards</h2>
         <p class="section-kicker">
-          Interactive Tableau views. Replace the placeholders here with your own embed codes once
-          your work is published.
+          Tableau views summarising overdose burden, clinic availability, and the income–overdose relationship at the county level.
         </p>
       </div>
 
@@ -682,27 +602,19 @@ print(model.summary())
         <article class="dashboard-card">
           <header class="dashboard-card-header">
             <div>
-              <div class="dashboard-title">Overdose Heat Map</div>
+              <div class="dashboard-title">Overdose Heat Map & Clinic Access</div>
               <p class="dashboard-desc">
-                County-level overdose rates with overlays for treatment access and socioeconomic status.
+                County-level overdose rates with county borders, highlighting where treatment clinics are present or absent.
               </p>
             </div>
             <span class="dashboard-tag">Main View</span>
           </header>
           <div class="tableau-frame">
-            <!-- Replace this placeholder with your Tableau iframe -->
-            <!-- Example:
-            <iframe src="https://public.tableau.com/views/YourWorkbook/YourView"
-                    title="Overdose Heat Map with Clinic Access" allowfullscreen></iframe>
-            -->
-<div class="tableau-frame">
-  <iframe
-    src="https://public.tableau.com/views/project_visual_samhsa_all/OverdosesbyCountyClinicAccess?:showVizHome=no&:embed=true"
-    title="Overdoses by County – Clinic Access"
-    allowfullscreen
-  ></iframe>
-</div>
-
+            <iframe
+              src="https://public.tableau.com/views/project_visual_samhsa_all/OverdosesbyCountyClinicAccess?:showVizHome=no&:embed=true"
+              title="Overdoses by County – Clinic Access"
+              allowfullscreen
+            ></iframe>
           </div>
         </article>
 
@@ -710,27 +622,19 @@ print(model.summary())
         <article class="dashboard-card">
           <header class="dashboard-card-header">
             <div>
-              <div class="dashboard-title">Clinic Density & Proximity</div>
+              <div class="dashboard-title">Overdose Rates & Income</div>
               <p class="dashboard-desc">
-                Visualizing SAMHSA clinic locations, county coverage, and distance-to-treatment metrics.
+                Comparison of overdose rates across the income distribution, emphasizing clusters of low-income, high-burden counties.
               </p>
             </div>
-            <span class="dashboard-tag">Access View</span>
+            <span class="dashboard-tag">Income View</span>
           </header>
           <div class="tableau-frame">
-            <!-- Replace this placeholder with your Tableau iframe -->
-            <!-- Example:
-            <iframe src="https://public.tableau.com/views/YourWorkbook/ClinicAccess"
-                    title="County Income" allowfullscreen></iframe>
-            -->
-<div class="tableau-frame">
-  <iframe
-    src="https://public.tableau.com/views/project_visual_samhsa_income/OverdosesbyCountyIncome?:showVizHome=no&:embed=true"
-    title="Overdoses by County – Income"
-    allowfullscreen
-  ></iframe>
-</div>
-
+            <iframe
+              src="https://public.tableau.com/views/project_visual_samhsa_income/OverdosesbyCountyIncome?:showVizHome=no&:embed=true"
+              title="Overdoses by County – Income"
+              allowfullscreen
+            ></iframe>
           </div>
         </article>
       </div>
@@ -741,7 +645,7 @@ print(model.summary())
       <div class="section-header">
         <h2 class="section-title">Analysis & Code</h2>
         <p class="section-kicker">
-          Use this section to explain your modeling approach and paste code or results from your teammate.
+          Summary of the research question, variables, and modelling strategy, together with the core Python code used in the analysis.
         </p>
       </div>
 
@@ -749,41 +653,53 @@ print(model.summary())
         <!-- Narrative analysis -->
         <article class="card">
           <div class="subheading">Statistical Story</div>
-          <p class="muted">Suggested structure — you can overwrite all this text.</p>
           <div class="analysis-text">
             <h3>1. Research Question</h3>
             <p>
-              We examine whether proximity to SAMHSA-affiliated clinics mitigates the impact of low income
-              on opioid overdose rates at the county level.
+              We ask whether proximity to SAMHSA-affiliated clinics attenuates the relationship between
+              low income and opioid overdose rates at the county level. In other words, do counties with
+              stronger treatment infrastructure fare better than expected given their socioeconomic
+              disadvantage?
             </p>
 
             <h3>2. Key Variables</h3>
             <ul>
-              <li><strong>Outcome:</strong> Overdose rate per 100,000 residents.</li>
-              <li><strong>Drivers:</strong> Median household income, % uninsured, unemployment rate.</li>
-              <li><strong>Access:</strong> Distance to nearest SAMHSA clinic or clinics per 100k.</li>
+              <li><strong>Outcome:</strong> <em>Overdose rate per 100,000 residents</em> in 2023.</li>
+              <li><strong>Socioeconomic drivers:</strong> median household income, percent uninsured, and
+                  a small set of additional demographic controls captured in <code>county_df</code>.</li>
+              <li><strong>Treatment access:</strong> number of SAMHSA-affiliated clinics per county
+                  (<code>clinic_count</code>). In supporting analysis we also consider indicators for
+                  whether a county has at least one clinic.</li>
             </ul>
 
             <h3>3. Model Outline</h3>
             <p>
-              We estimate a linear regression with interaction terms to test whether the effect of
-              socioeconomic status varies by treatment access:
+              We estimate an ordinary least squares regression in which the overdose rate is regressed on
+              income, insurance coverage, clinic availability, and an interaction between income and clinic
+              count:
             </p>
             <p class="muted">
-              od_rate = β₀ + β₁·income + β₂·access + β₃·(income × access) + controls + ε
+              od_rate<sub>i</sub> = β₀ + β₁·income<sub>i</sub> + β₂·uninsured<sub>i</sub> + β₃·clinics<sub>i</sub> +
+              β₄·(income<sub>i</sub> × clinics<sub>i</sub>) + ε<sub>i</sub>.
+            </p>
+            <p>
+              The interaction term allows the income–overdose gradient to differ across counties with more
+              versus fewer treatment resources.
             </p>
 
-            <h3>4. Interpretation</h3>
+            <h3>4. Linking back to the visuals</h3>
             <p>
-              Replace this with your actual findings, e.g.:
-              “Counties with lower income and weak clinic access show disproportionately high overdose
-              rates, while areas with similar income but stronger access exhibit lower risk.”
+              The regression results are interpreted alongside the dashboards: the heat map highlights
+              geographic clusters of high overdose burden, while the income view shows how these patterns
+              align with the income distribution. Counties that sit in the “low income, high overdose, low
+              clinic count” corner of the joint distribution are the most concerning from an access
+              perspective.
             </p>
 
             <div class="pill-row">
-              <span>Include: coefficients &amp; p-values</span>
-              <span>Discuss: goodness-of-fit</span>
-              <span>Connect back to maps</span>
+              <span>Outcome: overdose rate per 100k</span>
+              <span>Predictors: income, insurance, clinics</span>
+              <span>Focus: income × clinic interaction</span>
             </div>
           </div>
         </article>
@@ -791,54 +707,58 @@ print(model.summary())
         <!-- Code block for teammate -->
         <aside class="code-card">
           <header class="code-card-header">
-            <div class="code-card-label">Teammate Code / Output</div>
-            <div class="code-card-meta">Paste Python, R, or model summary here</div>
+            <div class="code-card-label">Teammate code / output</div>
+            <div class="code-card-meta">Scatterplot + regression specification in Python</div>
           </header>
-          <pre class="code-block"><span class="code-comment">county_df['Income Group'] = county_df['median_household_income_2023'].apply(
-    lambda x: 'Below Median Income' if x < median_income else 'Above Median Income'
-)
-
-plt.figure(figsize=(10,7))
-sns.scatterplot(
-    data=county_df,
-    x='median_household_income_2023',
-    y='od_rate_per_100k',
-    hue='Income Group',
-    palette={'Below Median Income': '#FF7F0E', 'Above Median Income': '#1F77B4'},
-    alpha=0.7,
-    edgecolor='white',
-    s=60
-)
-
-# Titles and labels
-plt.title('County Overdose Rate vs. Median Household Income (2023)', fontsize=15)
-plt.xlabel('Median Household Income (USD)', fontsize=12)
-plt.ylabel('Overdose Rate (per 100,000 Residents)', fontsize=12)
-plt.legend(title='Income Group')
-plt.grid(True, linestyle='--', alpha=0.4)
-plt.tight_layout()
-plt.show()</span>
-            <p class="muted">
-  Full code is available on GitHub:
-  <a href="https://github.com/YOUR-GITHUB-USERNAME/mgta452-opioid-dashboard/blob/main/analysis.ipynb">
-    analysis.ipynb
-  </a>
-</p>
-
-
-import pandas as pd
+          <pre class="code-block">import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 import statsmodels.formula.api as smf
 
-# df_county: merged CDC + SAMHSA data at county level
-# Columns (example):
-#   od_rate, median_income, pct_uninsured, clinic_count, dist_to_clinic_km
+# county_df: merged CDC + SAMHSA dataset at the county level.
+# Columns used here:
+#   - od_rate_per_100k
+#   - median_household_income_2023
+#   - pct_uninsured_2023
+#   - clinic_count
+
+median_income = county_df["median_household_income_2023"].median()
+county_df["income_group"] = county_df["median_household_income_2023"].apply(
+    lambda x: "Below median income" if x &lt; median_income else "Above median income"
+)
+
+plt.figure(figsize=(10, 7))
+sns.scatterplot(
+    data=county_df,
+    x="median_household_income_2023",
+    y="od_rate_per_100k",
+    hue="income_group",
+    alpha=0.7,
+    edgecolor="white",
+    s=60,
+)
+
+plt.title("County overdose rate vs. median household income (2023)")
+plt.xlabel("Median household income (USD)")
+plt.ylabel("Overdose rate per 100,000 residents")
+plt.legend(title="Income group")
+plt.grid(True, linestyle="--", alpha=0.4)
+plt.tight_layout()
 
 model = smf.ols(
-    "od_rate ~ median_income + pct_uninsured + clinic_count + median_income:clinic_count",
-    data=df_county
+    "od_rate_per_100k ~ median_household_income_2023 \
+     + pct_uninsured_2023 + clinic_count \
+     + median_household_income_2023:clinic_count",
+    data=county_df,
 ).fit()
 
 print(model.summary())</pre>
+          <p class="code-note">
+            Full analysis notebooks are available in the project repository:
+            <a href="https://github.com/rsm-amarkova/Opioid_SAMSHA" target="_blank" rel="noopener noreferrer">
+              github.com/rsm-amarkova/Opioid_SAMSHA
+            </a>.
+          </p>
         </aside>
       </div>
     </section>
@@ -848,61 +768,59 @@ print(model.summary())</pre>
       <div class="section-header">
         <h2 class="section-title">Methods & Data</h2>
         <p class="section-kicker">
-          Briefly document how you cleaned data, merged sources, and constructed your variables.
+          Overview of how the overdose and clinic datasets were prepared, merged, and translated into the county-level variables used in the analysis.
         </p>
       </div>
 
       <article class="card">
-        <div class="subheading">Reproducible Workflow (Outline)</div>
-        <p class="muted">
-          You can keep this as bullet points or expand into a full methodology section.
-        </p>
+        <div class="subheading">Data construction and modelling pipeline</div>
         <div class="analysis-text">
-          <h3>Data Sources</h3>
+          <h3>Data sources</h3>
           <ul>
-            <li>CDC: County-level opioid overdose counts and population.</li>
-            <li>SAMHSA: Treatment facility locations with county identifiers.</li>
+            <li>
+              <strong>CDC overdose data:</strong> county-level counts of opioid-involved overdose deaths
+              and population totals, used to compute overdose rates per 100,000 residents.
+            </li>
+            <li>
+              <strong>SAMHSA facility data:</strong> geocoded locations of SAMHSA-affiliated treatment
+              facilities, including county and state identifiers.
+            </li>
           </ul>
 
           <h3>Preprocessing</h3>
           <ul>
-            <li>Filter to years of interest (e.g., 2020–2023).</li>
-            <li>Aggregate clinic data to the county level (clinic count, distance metrics).</li>
-            <li>Join overdose and clinic datasets using FIPS codes.</li>
+            <li>Filter both datasets to a common year (2023) and to U.S. counties with valid FIPS codes.</li>
+            <li>Aggregate SAMHSA facilities to the county level to obtain <code>clinic_count</code>.</li>
+            <li>Merge overdose, clinic, and socioeconomic data using county FIPS codes.</li>
+            <li>Compute the outcome variable <code>od_rate_per_100k</code> from deaths and population.</li>
           </ul>
 
-          <h3>Constructed Variables</h3>
+          <h3>Constructed variables</h3>
           <ul>
-            <li>Overdose rate per 100,000 residents.</li>
-            <li>Clinics per 100,000 residents or nearest-clinic distance.</li>
-            <li>Socioeconomic indicators (income, insurance, etc.).</li>
-          </ul>
-        </div>
-      </article>
-    </section>
-
-    <!-- TEAM -->
-    <section id="team">
-      <div class="section-header">
-        <h2 class="section-title">Team & Contact</h2>
-        <p class="section-kicker">
-          Optional section to list team members and provide a contact email or course info.
-        </p>
-      </div>
-
-      <article class="card">
-        <div class="analysis-text">
-          <h3>Project Team</h3>
-          <ul>
-            <li><strong>Student A</strong> – Data wrangling & regression modeling</li>
-            <li><strong>Student B</strong> – Tableau dashboards & visual storytelling</li>
-            <li><strong>Student C</strong> – Literature review & write-up</li>
+            <li>
+              <strong>Overdose rate:</strong> opioid overdose deaths per 100,000 residents in each county.
+            </li>
+            <li>
+              <strong>Socioeconomic indicators:</strong> median household income and percent uninsured,
+              derived from county-level survey and administrative data.
+            </li>
+            <li>
+              <strong>Treatment access:</strong> number of SAMHSA-affiliated clinics in the county; in
+              robustness checks, an indicator for at least one clinic.
+            </li>
+            <li>
+              <strong>Income groups:</strong> categorical split (<em>above</em> vs <em>below</em> the
+              national median income) used for the scatterplot and descriptive comparisons.
+            </li>
           </ul>
 
-          <h3>Contact</h3>
-          <p class="muted">
-            You can list a group email here (e.g. <em>mgta452-team@university.edu</em>) or your
-            instructor’s contact if appropriate.
+          <h3>Estimation and interpretation</h3>
+          <p>
+            Models are estimated using ordinary least squares with robust standard errors. The main
+            coefficients of interest are the income gradient (β₁), the association between clinic count and
+            overdose rate (β₃), and the interaction between income and clinic availability (β₄). Together,
+            these terms describe whether treatment access appears to mitigate the overdose burden in
+            lower-income counties after accounting for insurance coverage and basic demographic factors.
           </p>
         </div>
       </article>
@@ -910,31 +828,8 @@ print(model.summary())</pre>
 
     <footer class="footer">
       <span>© <strong>MGTA 452</strong> – Opioid Overdose & Treatment Access Project</span>
-      <span>Built with Tableau + code-based analysis</span>
+      <span>Tableau visualisation and Python-based analysis</span>
     </footer>
   </main>
-
-  <script>
-    // Simple toggle for hero tabs
-    const tabButtons = document.querySelectorAll(".hero-panel-tabs button");
-    const embedPanel = document.getElementById("panel-embed");
-    const codePanel = document.getElementById("panel-code");
-
-    tabButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        tabButtons.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-
-        const target = btn.dataset.panel;
-        if (target === "embed") {
-          embedPanel.style.display = "block";
-          codePanel.style.display = "none";
-        } else {
-          embedPanel.style.display = "none";
-          codePanel.style.display = "block";
-        }
-      });
-    });
-  </script>
 </body>
 </html>
