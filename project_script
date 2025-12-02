@@ -1,0 +1,225 @@
+# %%
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import pyrsm as rsm
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+
+county_data = pd.read_csv("./Project_dataset.csv")
+county_df = pd.DataFrame(county_data)
+
+
+# %%
+od_mean_20 = county_df["drug_od_count_2020"].sum() / len(county_df["County"])
+od_mean_21 = county_df["drug_od_count_2021"].sum() / len(county_df["County"])
+od_mean_22 = county_df["drug_od_count_2022"].sum() / len(county_df["County"])
+od_mean_23 = county_df["drug_od_count_2023"].sum() / len(county_df["County"])
+
+
+od_median_20 = county_df["drug_od_count_2020"].median()
+od_median_21 = county_df["drug_od_count_2021"].median()
+od_median_22 = county_df["drug_od_count_2022"].median()
+od_median_23 = county_df["drug_od_count_2023"].median()
+
+od_max_20 = county_df["drug_od_count_2020"].max()
+od_max_21 = county_df["drug_od_count_2021"].max()
+od_max_22 = county_df["drug_od_count_2022"].max()
+od_max_23 = county_df["drug_od_count_2023"].max()
+
+
+print(f"2020 Avg Drug ODs: {od_mean_20:.0f}")
+print(f"2021 Avg Drug ODs: {od_mean_21:.0f}")
+print(f"2022 Avg Drug ODs: {od_mean_22:.0f}")
+print(f"2023 Avg Drug ODs: {od_mean_23:.0f}")
+
+print(f"2020 Median Drug ODs: {od_median_20:.0f}")
+print(f"2021 Median Drug ODs: {od_median_21:.0f}")
+print(f"2022 Median Drug ODs: {od_median_22:.0f}")
+print(f"2023 Median Drug ODs: {od_median_23:.0f}")
+
+print(f"2020 Max Drug ODs: {od_max_20:.0f}")
+print(f"2021 Max Drug ODs: {od_max_21:.0f}")
+print(f"2022 Max Drug ODs: {od_max_22:.0f}")
+print(f"2023 Max Drug ODs: {od_max_23:.0f}")
+
+
+# %%
+plt.hist(county_df["opioid_dispensing_rate_2023"], bins=30)
+plt.title("Distribution of opioid dispensing rates by county (2023)")
+
+
+# %%
+sns.scatterplot(x=county_df["unemployed_2023"], y=county_df["drug_od_count_2023"])
+plt.title("OD Rate vs unemployment")
+
+
+# %%
+plt.hist(county_df["od_rate_2023_per100k"], bins=30)
+plt.title("Distribution of OD rates by county (2023)")
+
+# %%
+sns.scatterplot(x=county_df["SAMSHA_total_count"], y=county_df["od_rate_2023_per100k"])
+plt.title("SAMSHA Count to OD rate")
+
+
+# %%
+median_income = county_df["median_household_income_2023"].median()
+
+county_df["od_rate_per_100k"] = (
+    county_df["drug_od_count_2023"] / county_df["population_2023"]
+) * 100000
+
+county_df["below_median_income"] = (
+    county_df["median_household_income_2023"] < median_income
+).astype(int)
+
+below_median = county_df[county_df["below_median_income"] == 1]["od_rate_per_100k"]
+above_median = county_df[county_df["below_median_income"] == 0]["od_rate_per_100k"]
+
+t_stat, p_val = stats.ttest_ind(below_median, above_median, equal_var=False)
+
+print(f"National Median Income: ${median_income:,.0f}")
+print(f"T-statistic: {t_stat:.3f}")
+print(f"P-value: {p_val:.5f}")
+print(f"Mean OD rate (below median): {below_median.mean():.2f}")
+print(f"Mean OD rate (above median): {above_median.mean():.2f}")
+
+if p_val < 0.05:
+    print("Reject H0: OD rates are significantly different between income groups.")
+    if below_median.mean() > above_median.mean():
+        print("Counties below median income have significantly higher OD rates.")
+    else:
+        print("Counties below median income have significantly lower OD rates.")
+else:
+    print(
+        "Fail to reject H0: No significant difference in OD rates between income groups."
+    )
+
+# %%
+low_income_df = county_df[county_df["median_household_income_2023"] < 68000]
+
+low_inc_with_clinic = low_income_df[low_income_df["SAMSHA_total_count"] > 0][
+    "od_rate_2023_per100k"
+]
+low_inc_no_clinic = low_income_df[low_income_df["SAMSHA_total_count"] == 0][
+    "od_rate_2023_per100k"
+]
+
+t2, p2 = stats.ttest_ind(low_inc_with_clinic, low_inc_no_clinic, equal_var=False)
+
+print(f"T-statistic: {t2:.3f}")
+print(f"P-value: {p2:.5f}")
+print(f"Mean OD (clinic):    {low_inc_with_clinic.mean():.2f}")
+print(f"Mean OD (no clinic): {low_inc_no_clinic.mean():.2f}")
+
+if p2 < 0.05:
+    effect = (
+        "LOWER" if low_inc_with_clinic.mean() < low_inc_no_clinic.mean() else "HIGHER"
+    )
+    print(
+        f"RESULT: Low-income counties WITH clinics have significantly {effect} OD rates."
+    )
+else:
+    print(
+        "RESULT: Clinic access is NOT significantly associated with OD rates among low-income counties."
+    )
+
+# %%
+county_df["Income Group"] = county_df["median_household_income_2023"].apply(
+    lambda x: "Below Median Income" if x < median_income else "Above Median Income"
+)
+
+plt.figure(figsize=(10, 7))
+sns.scatterplot(
+    data=county_df,
+    x="median_household_income_2023",
+    y="od_rate_per_100k",
+    hue="Income Group",
+    palette={"Below Median Income": "#FF7F0E", "Above Median Income": "#1F77B4"},
+    alpha=0.7,
+    edgecolor="white",
+    s=60,
+)
+
+# Titles and labels
+plt.title("County Overdose Rate vs. Median Household Income (2023)", fontsize=15)
+plt.xlabel("Median Household Income (USD)", fontsize=12)
+plt.ylabel("Overdose Rate (per 100,000 Residents)", fontsize=12)
+plt.legend(title="Income Group")
+plt.grid(True, linestyle="--", alpha=0.4)
+plt.tight_layout()
+plt.show()
+
+# %%
+county_df["log_drug_od_count_2023"] = np.log(county_df["drug_od_count_2023"] + 0.0001)
+
+# %%
+reg = rsm.model.regress(
+    {"county_ods": county_df},
+    rvar="log_drug_od_count_2023",
+    evar=[
+        "median_household_income_2023",
+        "unemployment_rate_2023",
+        "opioid_dispensing_rate_2023",
+        "SAMSHA_total_count",
+    ],
+)
+reg.plot("dist")
+
+# %%
+reg.summary(vif=True)
+
+# %%
+# Implement Negative Binomial regression to account for skew in OD rate
+
+county_df["log_pop"] = np.log(county_df["population_2023"])
+
+nb_model = smf.glm(
+    formula=(
+        "drug_od_count_2023 ~ "
+        "median_household_income_2023 + "
+        "unemployment_rate_2023_perc + "
+        "opioid_dispensing_rate_2023 + "
+        "SAMSHA_count_per100K"
+    ),
+    data=county_df,
+    family=sm.families.NegativeBinomial(alpha=1.0),
+    offset=county_df["log_pop"],
+).fit()
+
+print(nb_model.summary())
+
+
+# %%
+# Calculate IRRs to better interpret statistically significant features
+# IRR = e^coef
+
+params = nb_model.params
+conf = nb_model.conf_int()
+
+irr = np.exp(params)
+irr_ci = np.exp(conf)
+
+irr_table = pd.DataFrame(
+    {
+        "IRR": irr,
+        "CI_lower": irr_ci[0],
+        "CI_upper": irr_ci[1],
+        "p_value": nb_model.pvalues,
+    }
+)
+
+print(irr_table)
+
+# %% [markdown]
+# INCOME:
+# Each $1 increase in median household income is associated with a 0.0013% decrease in overdose rates. For better interpretability, every $10,000 increase is associated with about a 12.5% lower overdose rate, holding other variables constant.
+#
+# UNEMPLOYMENT:
+# Each 1% increase in unemployment results in about an 8.2% increase in OD mortality.
+#
+# SAMSHA:
+# Each additional SAMHSA facility per 100k population corresponds to a 0.6% increase in overdose mortality. This isn't causal, it indicates that facilities are allocated to areas with higher needs.
