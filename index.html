@@ -12,13 +12,13 @@
 
   <style>
     :root {
-      /* Dark forest green + deep slate blue palette */
+      /* Dark forest green + slate palette */
       --bg: #0c1512;
       --bg-alt: #0f1d1a;
       --card: #111f1a;
-      --accent: #4ec78a; /* soft emerald */
+      --accent: #4ec78a;           /* soft emerald */
       --accent-soft: rgba(78, 199, 138, 0.15);
-      --text: #e6f4ef;  /* off-white with slight green tint */
+      --text: #e6f4ef;
       --muted: #91a6a1;
       --border: #1f2e2a;
       --radius-xl: 1.25rem;
@@ -69,7 +69,7 @@
       top: 0;
       z-index: 20;
       backdrop-filter: blur(18px);
-      background: rgba(15, 30, 25, 0.85);
+      background: rgba(15, 30, 25, 0.9);
       padding: 0.75rem 1.25rem 0.6rem;
       margin: -0.5rem -1.25rem 1.5rem;
       border-bottom: 1px solid var(--border);
@@ -214,10 +214,29 @@
       margin-bottom: 0.75rem;
     }
 
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
     .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
       background: #0f1d1a;
       border: 1px solid var(--border);
       color: var(--text);
+    }
+
+    .hero-meta span strong {
+      color: #d0e8df;
+      font-weight: 500;
     }
 
     .hero-panel {
@@ -228,97 +247,273 @@
       box-shadow: var(--shadow-soft);
     }
 
+    .hero-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.7rem;
+      font-size: 0.8rem;
+    }
+
     .hero-panel-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       color: #8fd9ba;
+      font-weight: 600;
+    }
+
+    .hero-panel-label {
+      font-size: 0.75rem;
+      color: var(--muted);
     }
 
     .hero-panel-body {
+      border-radius: calc(var(--radius-xl) - 0.7rem);
       background: #0c1512;
       border: 1px solid var(--border);
+      padding: 0.8rem 0.85rem;
     }
 
     .hero-panel-code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.72rem;
       background: #0a0f0d;
+      border-radius: calc(var(--radius-xl) - 1rem);
+      padding: 0.7rem 0.8rem;
       border: 1px solid #2d3f39;
       color: #d7ebe5;
+      overflow-x: auto;
+      white-space: pre;
     }
 
-    /* Section headers */
+    /* Sections */
+    section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
     .section-title {
+      font-size: 1.05rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
       color: #9bd6c2;
     }
 
     .section-kicker {
+      font-size: 0.8rem;
       color: var(--muted);
+      max-width: 26rem;
     }
 
     /* Cards */
-    .card,
-    .dashboard-card,
-    .code-card {
+    .card {
       background: var(--card);
+      border-radius: var(--radius-xl);
       border: 1px solid var(--border);
+      padding: 1rem;
       box-shadow: var(--shadow-soft);
     }
 
     .subheading {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 0.2rem;
       color: var(--text);
     }
 
     .muted {
       color: var(--muted);
+      font-size: 0.85rem;
     }
 
-    /* Dashboard cards */
+    /* Dashboard grid */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 960px) {
+      .dashboard-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
     .dashboard-card {
       background: linear-gradient(135deg, #11241f, #0e1a17);
+      border-radius: var(--radius-xl);
+      padding: 0.9rem;
       border: 1px solid #1f2e2a;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .dashboard-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.75rem;
     }
 
     .dashboard-title {
+      font-size: 0.95rem;
+      font-weight: 500;
       color: var(--text);
     }
 
     .dashboard-tag {
-      background: #1d3a33;
+      font-size: 0.7rem;
       color: #9bd6c2;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: #1d3a33;
       border: 1px solid #325f55;
     }
 
-    .tableau-frame {
-      background: #0f1d1a;
-      border: 1px solid var(--border);
+    .dashboard-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
     }
 
-    /* Analysis text */
-    .analysis-text h3 {
+    .tableau-frame {
+      border-radius: calc(var(--radius-xl) - 0.65rem);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      background: #0f1d1a;
+      min-height: 480px;
+      display: flex;
+      align-items: stretch;
+      justify-content: stretch;
+      position: relative;
+    }
+
+    .tableau-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Analysis layout */
+    .analysis-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 960px) {
+      .analysis-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .analysis-text {
+      font-size: 0.86rem;
       color: var(--text);
     }
 
+    .analysis-text h3 {
+      font-size: 0.95rem;
+      margin: 0.25rem 0 0.2rem;
+      color: var(--text);
+    }
+
+    .analysis-text p {
+      margin-bottom: 0.4rem;
+    }
+
+    .analysis-text ul {
+      margin-left: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .analysis-text li {
+      margin-bottom: 0.25rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+      font-size: 0.75rem;
+    }
+
     .pill-row span {
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
       background: #16352e;
       border: 1px solid #325f55;
       color: #d0e8df;
     }
 
-    /* Code block card */
-    .code-block {
-      background: #0a0f0d;
-      border: 1px solid #2d3f39;
-      color: #d7ebe5;
+    /* Code card */
+    .code-card {
+      background: var(--card);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      padding: 0.9rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.78rem;
+    }
+
+    .code-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.4rem;
     }
 
     .code-card-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       color: #8fd9ba;
+      font-weight: 600;
     }
 
-    .code-note a {
-      color: var(--accent);
+    .code-card-meta {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .code-block {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      background: #0a0f0d;
+      border-radius: calc(var(--radius-xl) - 0.9rem);
+      border: 1px solid #2d3f39;
+      padding: 0.7rem 0.75rem;
+      overflow-x: auto;
+      white-space: pre;
+      color: #d7ebe5;
+    }
+
+    .code-note {
+      margin-top: 0.4rem;
+      font-size: 0.78rem;
+      color: var(--muted);
     }
 
     /* Footer */
     .footer {
+      margin-top: 2rem;
+      font-size: 0.78rem;
       color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      padding-top: 1.2rem;
       border-top: 1px solid var(--border);
     }
 
@@ -326,12 +521,6 @@
       color: #9bd6c2;
     }
   </style>
-</head>
-<body>
-  <!-- Everything below this stays unchanged -->
-  <!-- (Content omitted here because only the <style> changed.) -->
-  <!-- Paste your original HTML content below this line exactly as-is -->
-
 </head>
 <body>
   <header class="nav">
@@ -346,7 +535,8 @@
       <nav class="nav-links">
         <a href="#dashboards">Dashboards</a>
         <a href="#analysis">Analysis</a>
-        <a href="#methods" class="primary">Methods</a>
+        <a href="#methods">Methods</a>
+        <a href="#concessions" class="primary">Concessions</a>
       </nav>
     </div>
   </header>
@@ -387,12 +577,12 @@ import statsmodels.formula.api as smf
 # od_rate_per_100k = overdose deaths per 100,000 residents (2023)
 # median_household_income_2023 = inflation-adjusted median income
 # pct_uninsured_2023 = share of adults without health insurance
-# clinic_count = SAMHSA-affiliated clinics located in the county
+# SAMSHA_total_count = SAMHSA-affiliated clinics in the county
 
 model = smf.ols(
-    "od_rate_per_100k ~ median_household_income_2023 \
-     + pct_uninsured_2023 + clinic_count \
-     + median_household_income_2023:clinic_count",
+    "drug_od_count_2023 ~ median_household_income_2023 \
+     + unemployment_rate_2023 + opioid_dispensing_rate_2023 \
+     + SAMSHA_total_count",
     data=county_df,
 ).fit()
 
@@ -418,7 +608,7 @@ print(model.summary())
             <div>
               <div class="dashboard-title">Overdose Heat Map & Clinic Access</div>
               <p class="dashboard-desc">
-                County-level overdose rates with county borders, highlighting where treatment clinics are present or absent.
+                County-level overdose counts with county borders, highlighting where SAMHSA clinics are present or absent.
               </p>
             </div>
             <span class="dashboard-tag">Main View</span>
@@ -438,7 +628,7 @@ print(model.summary())
             <div>
               <div class="dashboard-title">Overdose Rates & Income</div>
               <p class="dashboard-desc">
-                Comparison of overdose rates across the income distribution, emphasizing clusters of low-income, high-burden counties.
+                Comparison of overdose burden across the income distribution, emphasizing clusters of low-income, high-burden counties.
               </p>
             </div>
             <span class="dashboard-tag">Income View</span>
@@ -459,7 +649,7 @@ print(model.summary())
       <div class="section-header">
         <h2 class="section-title">Analysis & Code</h2>
         <p class="section-kicker">
-          Summary of the research question, variables, and modelling strategy, together with the core Python code used in the analysis.
+          Summary of the research question, variables, modelling strategy, and key regression results.
         </p>
       </div>
 
@@ -471,49 +661,50 @@ print(model.summary())
             <h3>1. Research Question</h3>
             <p>
               We ask whether proximity to SAMHSA-affiliated clinics attenuates the relationship between
-              low income and opioid overdose rates at the county level. In other words, do counties with
-              stronger treatment infrastructure fare better than expected given their socioeconomic
-              disadvantage?
+              low income and opioid overdose burden at the county level. Do counties with stronger
+              treatment infrastructure fare better than expected given their socioeconomic disadvantage?
             </p>
 
             <h3>2. Key Variables</h3>
             <ul>
-              <li><strong>Outcome:</strong> <em>Overdose rate per 100,000 residents</em> in 2023.</li>
-              <li><strong>Socioeconomic drivers:</strong> median household income, percent uninsured, and
+              <li><strong>Outcome:</strong> <em>drug overdose deaths in 2023</em> (<code>drug_od_count_2023</code>).</li>
+              <li><strong>Socioeconomic drivers:</strong> median household income, unemployment rate, and
                   a small set of additional demographic controls captured in <code>county_df</code>.</li>
-              <li><strong>Treatment access:</strong> number of SAMHSA-affiliated clinics per county
-                  (<code>clinic_count</code>). In supporting analysis we also consider indicators for
-                  whether a county has at least one clinic.</li>
+              <li><strong>Treatment access:</strong> total number of SAMHSA-affiliated clinics in each county
+                  (<code>SAMSHA_total_count</code>).</li>
+              <li><strong>Opioid environment:</strong> opioid dispensing rate per 100 persons.</li>
             </ul>
 
             <h3>3. Model Outline</h3>
             <p>
-              We estimate an ordinary least squares regression in which the overdose rate is regressed on
-              income, insurance coverage, clinic availability, and an interaction between income and clinic
-              count:
+              We estimate an ordinary least squares regression in which overdose deaths are regressed on income,
+              unemployment, opioid dispensing, and clinic availability:
             </p>
             <p class="muted">
-              od_rate<sub>i</sub> = β₀ + β₁·income<sub>i</sub> + β₂·uninsured<sub>i</sub> + β₃·clinics<sub>i</sub> +
-              β₄·(income<sub>i</sub> × clinics<sub>i</sub>) + ε<sub>i</sub>.
+              drug_od_count<sub>i</sub> =
+              β₀ + β₁·income<sub>i</sub> +
+              β₂·unemployment<sub>i</sub> +
+              β₃·dispensing<sub>i</sub> +
+              β₄·clinics<sub>i</sub> + ε<sub>i</sub>.
             </p>
             <p>
-              The interaction term allows the income–overdose gradient to differ across counties with more
-              versus fewer treatment resources.
+              The Tableau views complement this by showing where low-income, high-burden counties
+              coincide with sparse clinic coverage.
             </p>
 
             <h3>4. Linking back to the visuals</h3>
             <p>
-              The regression results are interpreted alongside the dashboards: the heat map highlights
-              geographic clusters of high overdose burden, while the income view shows how these patterns
-              align with the income distribution. Counties that sit in the “low income, high overdose, low
-              clinic count” corner of the joint distribution are the most concerning from an access
+              The heat map highlights geographic clusters of high overdose burden and reveals which of
+              those areas currently have SAMHSA clinics. The income view shows how counties move along the
+              income distribution as burden increases. Counties that sit in the “low income, high overdose,
+              few clinics” corner of the joint distribution are the most concerning from an access
               perspective.
             </p>
 
             <div class="pill-row">
-              <span>Outcome: overdose rate per 100k</span>
-              <span>Predictors: income, insurance, clinics</span>
-              <span>Focus: income × clinic interaction</span>
+              <span>Outcome: overdose deaths (2023)</span>
+              <span>Predictors: income, unemployment, dispensing, clinics</span>
+              <span>Focus: access in low-income counties</span>
             </div>
           </div>
         </article>
@@ -521,27 +712,26 @@ print(model.summary())
         <!-- Code block for teammate -->
         <aside class="code-card">
           <header class="code-card-header">
-            <div class="code-card-label">Regression and outputs</div>
-            <div class="code-card-meta">Scatterplot + regression specification in Python</div>
+            <div class="code-card-label">Regression & diagnostics</div>
+            <div class="code-card-meta">Estimated on the merged county dataset</div>
           </header>
           <pre class="code-block">Linear regression (OLS)
 Data                 : county_ods
 Response variable    : drug_od_count_2023
-Explanatory variables: median_household_income_2023, unemployment_rate_2023, opioid_dispensing_rate_2023, SAMSHA_total_count
-Null hyp.: the effect of x on drug_od_count_2023 is zero
-Alt. hyp.: the effect of x on drug_od_count_2023 is not zero
+Explanatory variables: median_household_income_2023,
+                       unemployment_rate_2023,
+                       opioid_dispensing_rate_2023,
+                       SAMSHA_total_count
 
                               coefficient  std.error  t.value p.value
-Intercept                        -139.603     12.496  -11.172  < .001  ***
-median_household_income_2023        0.002      0.000   13.144  < .001  ***
-unemployment_rate_2023           1035.094    155.118    6.673  < .001  ***
-opioid_dispensing_rate_2023         0.392      0.065    5.993  < .001  ***
+Intercept                        -139.603     12.496  -11.172  &lt; .001  ***
+median_household_income_2023        0.002      0.000   13.144  &lt; .001  ***
+unemployment_rate_2023           1035.094    155.118    6.673  &lt; .001  ***
+opioid_dispensing_rate_2023         0.392      0.065    5.993  &lt; .001  ***
 SAMSHA_total_count                 -1.550      0.813   -1.906   0.057    .
 
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
 R-squared: 0.072, Adjusted R-squared: 0.071
-F-statistic: 59.968 df(4, 3076), p.value < 0.001
+F-statistic: 59.968 df(4, 3076), p.value &lt; 0.001
 Nr obs: 3,081 (54 obs. dropped)
 
 Variance inflation factors:
@@ -550,7 +740,7 @@ Variance inflation factors:
 median_household_income_2023  1.656  0.396
 SAMSHA_total_count            1.502  0.334
 unemployment_rate_2023        1.107  0.097
-opioid_dispensing_rate_2023   1.020  0.020
+opioid_dispensing_rate_2023   1.020  0.020</pre>
           <p class="code-note">
             Full analysis notebooks are available in the project repository:
             <a href="https://github.com/rsm-amarkova/Opioid_SAMSHA" target="_blank" rel="noopener noreferrer">
@@ -577,61 +767,138 @@ opioid_dispensing_rate_2023   1.020  0.020
           <ul>
             <li>
               <strong>CDC overdose data:</strong> county-level counts of opioid-involved overdose deaths
-              and population totals, used to compute overdose rates per 100,000 residents.
+              and population totals, used to compute overdose rates and total death counts.
             </li>
             <li>
               <strong>SAMHSA facility data:</strong> geocoded locations of SAMHSA-affiliated treatment
               facilities, including county and state identifiers.
             </li>
+            <li>
+              <strong>Socioeconomic indicators:</strong> median household income, unemployment, and
+              insurance coverage from county-level statistical releases.
+            </li>
           </ul>
 
           <h3>Preprocessing</h3>
           <ul>
-            <li>Filter both datasets to a common year (2023) and to U.S. counties with valid FIPS codes.</li>
-            <li>Aggregate SAMHSA facilities to the county level to obtain <code>clinic_count</code>.</li>
+            <li>Filter all datasets to a common year (2023) and to U.S. counties with valid FIPS codes.</li>
+            <li>Aggregate SAMHSA facilities to the county level to obtain <code>SAMSHA_total_count</code>.</li>
             <li>Merge overdose, clinic, and socioeconomic data using county FIPS codes.</li>
-            <li>Compute the outcome variable <code>od_rate_per_100k</code> from deaths and population.</li>
+            <li>Compute the outcome variables: raw overdose counts and rates per 100,000 residents.</li>
           </ul>
 
           <h3>Constructed variables</h3>
           <ul>
             <li>
-              <strong>Overdose rate:</strong> opioid overdose deaths per 100,000 residents in each county.
+              <strong>Overdose burden:</strong> total overdose deaths in 2023 and overdose rate per
+              100,000 residents.
             </li>
             <li>
-              <strong>Socioeconomic indicators:</strong> median household income and percent uninsured,
-              derived from county-level survey and administrative data.
+              <strong>Socioeconomic indicators:</strong> median household income, unemployment rate,
+              and percent uninsured.
             </li>
             <li>
-              <strong>Treatment access:</strong> number of SAMHSA-affiliated clinics in the county; in
-              robustness checks, an indicator for at least one clinic.
+              <strong>Treatment access:</strong> number of SAMHSA-affiliated clinics per county; in
+              descriptive work we also consider an indicator for having at least one clinic.
             </li>
             <li>
-              <strong>Income groups:</strong> categorical split (<em>above</em> vs <em>below</em> the
-              national median income) used for the scatterplot and descriptive comparisons.
+              <strong>Income groups:</strong> above vs. below the national median income for
+              scatterplots and descriptive comparisons.
             </li>
           </ul>
 
           <h3>Estimation and interpretation</h3>
           <p>
-            Models are estimated using ordinary least squares with robust standard errors. The main
-            coefficients of interest are the income gradient (β₁), the association between clinic count and
-            overdose rate (β₃), and the interaction between income and clinic availability (β₄). Together,
-            these terms describe whether treatment access appears to mitigate the overdose burden in
-            lower-income counties after accounting for insurance coverage and basic demographic factors.
+            Models are estimated using ordinary least squares. The income and unemployment coefficients
+            capture socioeconomic gradients in overdose burden, while the dispensing rate summarises
+            exposure to prescribed opioids. The coefficient on <code>SAMSHA_total_count</code> is small
+            and only marginally significant, suggesting that simple cross-sectional counts of clinics are
+            not enough to demonstrate a strong protective effect once other factors are taken into account.
           </p>
-        <h3>Policy Implications</h3>
+
+          <h3>Policy framing</h3>
           <p>
-            Investing in:
+            Rather than concluding that clinics are ineffective, we interpret the results as capturing a
+            snapshot of a dynamic process: places with severe overdose problems may be precisely the
+            communities that decide to invest in more clinics. The dashboards and model together highlight
+            where those investments appear most needed—counties that are both economically disadvantaged
+            and heavily burdened by overdose deaths.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- CONCESSIONS -->
+    <section id="concessions">
+      <div class="section-header">
+        <h2 class="section-title">Concessions & Future Directions</h2>
+        <p class="section-kicker">
+          Reflections on what we would change with more time and data, and how the story around clinics and overdoses should be interpreted.
+        </p>
+      </div>
+
+      <article class="card">
+        <div class="subheading">What we would change with a longer horizon</div>
+        <div class="analysis-text">
+          <h3>1. Cross-section vs. trajectory</h3>
+          <p>
+            Our analysis is based on a single cross-section of counties. This lets us describe where
+            overdoses and clinics are today, but it does not reveal how communities arrived at those
+            configurations. In reality, the story likely runs as follows:
+          </p>
+          <p>
+            <em>cities experience rising overdoses → local leaders notice the crisis → clinics are
+            installed or expanded in response.</em>
+          </p>
+          <p>
+            In that world, a county could have both high overdose counts <strong>and</strong> many clinics,
+            not because clinics are ineffective, but because they were deployed to confront an already
+            severe problem. Our static regression cannot disentangle this feedback loop.
+          </p>
+
+          <h3>2. Need for longitudinal monitoring</h3>
+          <p>
+            Ideally, we would follow counties over time and examine whether overdose trends improve after
+            clinics are introduced or expanded. With panel data, we could:
           </p>
           <ul>
-            <li>More treatment clinics</li>
-            <li>Better accessibility (transportation, distance, availability)</li>
-            <li>Expanded treatment capacity (MAT, counseling, recovery services)</li>
+            <li>Track overdose rates before and after clinic openings.</li>
+            <li>Compare counties that gained clinics to similar counties that did not.</li>
+            <li>Use designs such as difference-in-differences to estimate a more credible causal impact.</li>
           </ul>
           <p>
-            should prioritize low-income, resource-poor counties, where the potential
-            public health impact is greatest.
+            That kind of longitudinal monitoring would align better with the policy question our story is
+            hinting at: do clinics help bend the overdose curve once they are in place?
+          </p>
+
+          <h3>3. What our results should — and should not — be used for</h3>
+          <p>
+            The current project is best viewed as a <strong>descriptive mapping exercise</strong> rather
+            than definitive evidence on clinic effectiveness. We can say:
+          </p>
+          <ul>
+            <li>Where overdose burden is highest.</li>
+            <li>Where treatment infrastructure is thin relative to need.</li>
+            <li>How burden correlates with income, unemployment, and dispensing rates.</li>
+          </ul>
+          <p>
+            We <strong>cannot</strong> say that clinics “do not work” based on these results. Instead, a
+            more cautious interpretation is that communities facing high overdose burden are installing
+            clinics in response, and our cross-sectional snapshot is catching them mid-course.
+          </p>
+
+          <h3>4. Future extensions</h3>
+          <p>
+            With more time, we would like to:
+          </p>
+          <ul>
+            <li>Incorporate multiple years of overdose and clinic data to study trajectories.</li>
+            <li>Distinguish between different types of facilities (inpatient, outpatient, MAT, etc.).</li>
+            <li>Overlay additional structural factors such as transportation access and rurality.</li>
+          </ul>
+          <p>
+            These extensions would sharpen the story from “where are clinics and overdoses now?” to
+            “how are communities using treatment infrastructure to respond to an evolving crisis?”
           </p>
         </div>
       </article>
