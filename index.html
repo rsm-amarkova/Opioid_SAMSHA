@@ -1,3 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MGTA 452 – Opioid Overdose Analysis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Dark forest green + deep slate blue palette */
+      --bg: #0c1512;
+      --bg-alt: #0f1d1a;
+      --card: #111f1a;
+      --accent: #4ec78a; /* soft emerald */
+      --accent-soft: rgba(78, 199, 138, 0.15);
+      --text: #e6f4ef;  /* off-white with slight green tint */
+      --muted: #91a6a1;
+      --border: #1f2e2a;
+      --radius-xl: 1.25rem;
+      --radius-lg: 0.9rem;
+      --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.5);
+      --transition-fast: 150ms ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0c1512 0%, #0f1d1a 40%, #132822 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Layout */
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.25rem 1.25rem 3rem;
+    }
+
+    @media (min-width: 1024px) {
+      .page {
+        padding: 2.5rem 0 3.5rem;
+      }
+    }
+
+    /* Top nav */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(15, 30, 25, 0.85);
+      padding: 0.75rem 1.25rem 0.6rem;
+      margin: -0.5rem -1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    @media (min-width: 1024px) {
+      .nav {
+        margin: -0.5rem 0 2rem;
+        border-radius: 999px;
+        max-width: 1100px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding-inline: 1.5rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.55);
+      }
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-logo {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(78, 199, 138, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 30% 0, rgba(40, 80, 60, 0.9), transparent 60%), #0f1d1a;
+      box-shadow: 0 0 0 1px rgba(40, 60, 50, 0.9);
+      font-size: 0.8rem;
+      color: #d0e8df;
+      font-weight: 600;
+    }
+
+    .nav-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .nav-sub {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+    }
+
+    .nav-links a {
+      padding: 0.25rem 0.85rem;
+      border-radius: 999px;
+      color: var(--text);
+      border: 1px solid transparent;
+      background: transparent;
+      transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform 120ms ease-out;
+    }
+
+    .nav-links a:hover {
+      background: #16352e;
+      border-color: #325f55;
+      transform: translateY(-1px);
+    }
+
+    .nav-links a.primary {
+      background: linear-gradient(135deg, #1e5f4e, #0f3a4f);
+      color: #e6f4ef;
+      font-weight: 500;
+      border-color: transparent;
+      box-shadow: 0 10px 25px rgba(10, 50, 40, 0.7);
+    }
+
+    .nav-links a.primary:hover {
+      transform: translateY(-1px) translateZ(0);
+      box-shadow: 0 16px 35px rgba(10, 50, 40, 0.9);
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 1.75rem;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-heading {
+      font-size: clamp(2.1rem, 4vw, 2.65rem);
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .hero-highlight {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid #233c34;
+      background: var(--accent-soft);
+      margin-bottom: 0.65rem;
+      font-size: 0.75rem;
+      color: #9be3c3;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(30, 80, 60, 0.25);
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 32rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-meta span {
+      background: #0f1d1a;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1rem 1.1rem;
+      background: linear-gradient(135deg, #132822, #0f1d1a);
+      border: 1px solid #1f2e2a;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-panel-title {
+      color: #8fd9ba;
+    }
+
+    .hero-panel-body {
+      background: #0c1512;
+      border: 1px solid var(--border);
+    }
+
+    .hero-panel-code {
+      background: #0a0f0d;
+      border: 1px solid #2d3f39;
+      color: #d7ebe5;
+    }
+
+    /* Section headers */
+    .section-title {
+      color: #9bd6c2;
+    }
+
+    .section-kicker {
+      color: var(--muted);
+    }
+
+    /* Cards */
+    .card,
+    .dashboard-card,
+    .code-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .subheading {
+      color: var(--text);
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    /* Dashboard cards */
+    .dashboard-card {
+      background: linear-gradient(135deg, #11241f, #0e1a17);
+      border: 1px solid #1f2e2a;
+    }
+
+    .dashboard-title {
+      color: var(--text);
+    }
+
+    .dashboard-tag {
+      background: #1d3a33;
+      color: #9bd6c2;
+      border: 1px solid #325f55;
+    }
+
+    .tableau-frame {
+      background: #0f1d1a;
+      border: 1px solid var(--border);
+    }
+
+    /* Analysis text */
+    .analysis-text h3 {
+      color: var(--text);
+    }
+
+    .pill-row span {
+      background: #16352e;
+      border: 1px solid #325f55;
+      color: #d0e8df;
+    }
+
+    /* Code block card */
+    .code-block {
+      background: #0a0f0d;
+      border: 1px solid #2d3f39;
+      color: #d7ebe5;
+    }
+
+    .code-card-label {
+      color: #8fd9ba;
+    }
+
+    .code-note a {
+      color: var(--accent);
+    }
+
+    /* Footer */
+    .footer {
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    .footer span strong {
+      color: #9bd6c2;
+    }
+  </style>
+</head>
+<body>
+  <!-- Everything below this stays unchanged -->
+  <!-- (Content omitted here because only the <style> changed.) -->
+  <!-- Paste your original HTML content below this line exactly as-is -->
   <!DOCTYPE html>
 <html lang="en">
 <head>
